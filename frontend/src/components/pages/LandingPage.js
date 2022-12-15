@@ -1,10 +1,12 @@
 import React from "react";
 
 import Dashboard from "../Dashboard";
+import FilterPanel from "../FilterPanel/FilterPanel";
 
 const LandingPage = function (props) {
   return (
     <React.Fragment>
+      <FilterPanel />
       <Dashboard videoList={props.videoList}></Dashboard>
     </React.Fragment>
   );
