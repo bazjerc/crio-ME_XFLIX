@@ -8,12 +8,23 @@ import MenuItem from "@mui/material/MenuItem";
 
 import FilterContext from "../../store/filter-context";
 
-const DropdownFilter = function () {
+const SortFilter = function () {
   const filterCtx = useContext(FilterContext);
+  const currentSortFilter = filterCtx.currentFilter.sort;
 
   const changeSortFilterhandler = function (value) {
     filterCtx.updateFilters("sort", value);
   };
+
+  const filterItems = filterCtx.availableFilters.sort.map(
+    ({ name, value }, i) => {
+      return (
+        <MenuItem value={value} key={i}>
+          {name}
+        </MenuItem>
+      );
+    }
+  );
 
   return (
     <FormControl>
@@ -21,19 +32,13 @@ const DropdownFilter = function () {
       <Select
         labelId="sort"
         label="Sort by"
-        defaultValue={filterCtx.availableFilters.sort[0]}
+        value={currentSortFilter}
         onChange={(e) => changeSortFilterhandler(e.target.value)}
       >
-        {filterCtx.availableFilters.sort.map((sortKeyword, i) => {
-          return (
-            <MenuItem value={sortKeyword} key={i}>
-              {sortKeyword}
-            </MenuItem>
-          );
-        })}
+        {filterItems}
       </Select>
     </FormControl>
   );
 };
 
-export default DropdownFilter;
+export default SortFilter;

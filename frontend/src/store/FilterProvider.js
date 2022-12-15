@@ -5,28 +5,30 @@ import FilterContext from "./filter-context";
 
 const defaultFilterState = {
   title: "",
-  genre: [],
+  genre: "",
   ageRating: "",
   sort: "releaseDate",
 };
 
 const availableFilters = {
-  genre: ["All Genre", "Education", "Sports", "Comedy", "Lifestyle"],
-  ageRating: ["Any Age Group", "7+", "12+", "16+", "18+"],
-  sort: ["Release Date", "View Count"],
-};
-
-const convertToCamelCase = function (string) {
-  const strArr = string.split(" ");
-  return strArr
-    .map((str, i) => {
-      if (i === 0) {
-        return str.toLowerCase();
-      } else {
-        return str[0].toUpperCase() + str.slice(1).toLowerCase();
-      }
-    })
-    .join("");
+  genre: [
+    { name: "All Genre", value: "" },
+    { name: "Education", value: "Education" },
+    { name: "Sports", value: "Sports" },
+    { name: "Comedy", value: "Comedy" },
+    { name: "Lifestyle", value: "Lifestyle" },
+  ],
+  ageRating: [
+    { name: "Any Age Group", value: "" },
+    { name: "7+", value: "7+" },
+    { name: "12+", value: "12+" },
+    { name: "16+", value: "16+" },
+    { name: "18+", value: "18+" },
+  ],
+  sort: [
+    { name: "Release Date", value: "releaseDate" },
+    { name: "View Count", value: "viewCount" },
+  ],
 };
 
 const filterReducer = function (state, action) {
@@ -37,34 +39,45 @@ const filterReducer = function (state, action) {
   }
 
   if (action.type === "genre") {
-    if (action.value === "All Genre") {
-      updatedFilterState = { ...state, genre: [] };
+    if (action.value === "") {
+      updatedFilterState = { ...state, genre: action.value };
     } else {
-      const indexOfValue = state.genre.indexOf(action.value);
-      if (indexOfValue === -1) {
-        updatedFilterState = {
-          ...state,
-          genre: [...state.genre].concat(action.value),
-        };
+      if (Array.isArray(state.genre)) {
+        if (state.genre.indexOf(action.value) === -1) {
+          updatedFilterState = {
+            ...state,
+            genre: [...state.genre].concat(action.value),
+          };
+        } else {
+          if (state.genre.length === 1) {
+            updatedFilterState = {
+              ...state,
+              genre: "",
+            };
+          } else {
+            updatedFilterState = {
+              ...state,
+              genre: [...state.genre].filter(
+                (keyword) => keyword !== action.value
+              ),
+            };
+          }
+        }
       } else {
         updatedFilterState = {
           ...state,
-          genre: [...state.genre].filter((keyword) => keyword !== action.value),
+          genre: [].concat(action.value),
         };
       }
     }
   }
 
   if (action.type === "ageRating") {
-    if (action.value === "Any Age Group") {
-      updatedFilterState = { ...state, ageRating: "" };
-    } else {
-      updatedFilterState = { ...state, ageRating: action.value };
-    }
+    updatedFilterState = { ...state, ageRating: action.value };
   }
 
   if (action.type === "sort") {
-    updatedFilterState = { ...state, sort: convertToCamelCase(action.value) };
+    updatedFilterState = { ...state, sort: action.value };
   }
 
   return updatedFilterState;

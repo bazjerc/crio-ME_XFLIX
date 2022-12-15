@@ -4,8 +4,6 @@ import Grid from "@mui/material/Grid";
 
 import VideoCard from "./VideoCard";
 
-import classes from "./Dashboard.module.css";
-
 const Dashboard = function (props) {
   const videoGrid = props.videoList.map((videoData) => {
     return (
@@ -21,7 +19,7 @@ const Dashboard = function (props) {
   });
 
   return (
-    <div className={classes.dashboard}>
+    <div>
       <Grid container>{videoGrid}</Grid>
     </div>
   );

@@ -1,11 +1,13 @@
 import React from "react";
 
+import Header from "../Header/Header";
 import Dashboard from "../Dashboard";
 import FilterPanel from "../FilterPanel/FilterPanel";
 
 const LandingPage = function (props) {
   return (
     <React.Fragment>
+      <Header />
       <FilterPanel />
       <Dashboard videoList={props.videoList}></Dashboard>
     </React.Fragment>

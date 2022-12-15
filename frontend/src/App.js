@@ -1,23 +1,23 @@
 import React from "react";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 
 import axios from "axios";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
-import LandingPage from "./components/pages/LandingPage";
+import LandingPage from "./components/routes/Root";
 
 import FilterContext from "./store/filter-context";
 
-import config from "./config/config";
+import siteConfig from "./config/siteConfig";
 
 import "./App.css";
 
-const buildQueryString = function (title, genre, ageRating, sort) {
-  let queryString = `/videos?sortBy=${sort}`;
+const buildQueryString = function ({ title, genre, ageRating, sort }) {
+  let queryString = `?sortBy=${sort}`;
 
   if (title) queryString += `&title=${title}`;
-  if (genre.length) queryString += `&genres=${genre.toString()}`;
+  if (genre) queryString += `&genres=${genre.toString()}`;
   if (ageRating) queryString += `&contentRating=${ageRating}`;
 
   return encodeURI(queryString); // uporabi replace
@@ -25,30 +25,39 @@ const buildQueryString = function (title, genre, ageRating, sort) {
 
 function App() {
   const filterCtx = useContext(FilterContext);
-  const [videos, setVideos] = useState([]);
+  const [videoList, setVideoList] = useState([]);
+  console.log(filterCtx.currentFilter);
 
-  const getVideos = async function () {
-    const reqOptions = {
-      method: "get",
-      url: `${config.backendEndpoint}/videos`,
-    };
+  const getVideos = useCallback(
+    async function () {
+      const queryString = buildQueryString(filterCtx.currentFilter);
+      console.log(queryString);
 
-    try {
-      const res = await axios(reqOptions);
-      setVideos(res.data.videos);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      const reqOptions = {
+        method: "get",
+        url: `${siteConfig.backendEndpoint}/videos${queryString}`,
+      };
+
+      try {
+        const res = await axios(reqOptions);
+        setVideoList(res.data.videos);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [filterCtx.currentFilter]
+  );
+
+  const currentFilters = filterCtx.currentFilter;
 
   useEffect(() => {
     getVideos();
-  }, []);
+  }, [currentFilters]);
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <LandingPage videoList={videos} />
+      <LandingPage videoList={videoList} />
     </React.Fragment>
   );
 }
