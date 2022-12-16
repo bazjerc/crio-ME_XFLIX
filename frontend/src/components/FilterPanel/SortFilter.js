@@ -2,11 +2,19 @@ import React from "react";
 import { useContext } from "react";
 
 import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Box from "@mui/system/Box";
+
+import ImportExportIcon from "@mui/icons-material/ImportExport";
 
 import FilterContext from "../../store/filter-context";
+
+const convertToTitleCase = function (string) {
+  const temp = string.replace(/([A-Z])/g, " $1");
+  const titleCase = temp.charAt(0).toUpperCase() + temp.slice(1);
+  return titleCase;
+};
 
 const SortFilter = function () {
   const filterCtx = useContext(FilterContext);
@@ -27,13 +35,28 @@ const SortFilter = function () {
   );
 
   return (
-    <FormControl>
-      <InputLabel id="sort">Sort by</InputLabel>
+    <FormControl size="small" fullWidth={false}>
       <Select
-        labelId="sort"
-        label="Sort by"
         value={currentSortFilter}
         onChange={(e) => changeSortFilterhandler(e.target.value)}
+        IconComponent={() => {}}
+        renderValue={(value) => {
+          return (
+            <Box sx={{ display: "flex", gap: 1 }}>
+              <ImportExportIcon />
+              {convertToTitleCase(value)}
+            </Box>
+          );
+        }}
+        sx={{
+          bgcolor: "button.filter.selected.background",
+          borderRadius: "100px",
+          ".MuiOutlinedInput-notchedOutline": { border: 0 },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            border: 0,
+          },
+          width: 165,
+        }}
       >
         {filterItems}
       </Select>

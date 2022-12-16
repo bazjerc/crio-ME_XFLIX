@@ -1,16 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
+
 import App from "./App";
 
 import FilterProvider from "./store/FilterProvider";
 
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import defaultTheme from "./themes/default-theme";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <FilterProvider>
-      <App />
-    </FilterProvider>
+    <ThemeProvider theme={defaultTheme}>
+      <FilterProvider>
+        <CssBaseline />
+        <App />
+      </FilterProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

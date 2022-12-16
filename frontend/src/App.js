@@ -3,13 +3,12 @@ import { useEffect, useState, useContext, useCallback } from "react";
 
 import axios from "axios";
 
-import CssBaseline from "@mui/material/CssBaseline";
-
 import LandingPage from "./components/routes/Root";
 
 import FilterContext from "./store/filter-context";
 
-import siteConfig from "./config/siteConfig";
+import siteConfig from "./config/site-config";
+import { mockData } from "./config/site-config";
 
 import "./App.css";
 
@@ -39,8 +38,9 @@ function App() {
       };
 
       try {
-        const res = await axios(reqOptions);
-        setVideoList(res.data.videos);
+        // const res = await axios(reqOptions);
+        // setVideoList(res.data.videos);
+        setVideoList(mockData);
       } catch (err) {
         console.log(err);
       }
@@ -56,7 +56,6 @@ function App() {
 
   return (
     <React.Fragment>
-      <CssBaseline />
       <LandingPage videoList={videoList} />
     </React.Fragment>
   );

@@ -2,7 +2,9 @@ import React from "react";
 
 import { useContext } from "react";
 
-import Button from "@mui/material/Button";
+import Stack from "@mui/system/Stack";
+
+import FilterButton from "./FilterButton";
 
 import FilterContext from "../../store/filter-context";
 
@@ -17,18 +19,27 @@ const AgeRatingFilter = function () {
 
   const filterButtons = filterCtx.availableFilters.ageRating.map(
     ({ name, value }, i) => {
+      const isSeleceted = currentAgeRatingFilter === value;
       return (
-        <Button
+        <FilterButton
+          name={name}
+          selected={isSeleceted}
           onClick={changeAgeRatingFilterHandler.bind(null, value)}
           key={i}
-        >
-          {name}
-        </Button>
+        />
       );
     }
   );
 
-  return <div>{filterButtons}</div>;
+  return (
+    <Stack
+      direction={"row"}
+      justifyContent={"center"}
+      spacing={{ xs: 3, sm: 4 }}
+    >
+      {filterButtons}
+    </Stack>
+  );
 };
 
 export default AgeRatingFilter;

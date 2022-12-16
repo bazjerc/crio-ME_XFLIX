@@ -1,7 +1,9 @@
 import React from "react";
 import { useContext } from "react";
 
-import Button from "@mui/material/Button";
+import Stack from "@mui/system/Stack";
+
+import FilterButton from "./FilterButton";
 
 import FilterContext from "../../store/filter-context";
 
@@ -16,15 +18,24 @@ const GenreFilter = function () {
 
   const filterButtons = filterCtx.availableFilters.genre.map(
     ({ name, value }, i) => {
+      const isSeleceted =
+        currentGenreFilter.includes(value) || currentGenreFilter === value;
       return (
-        <Button onClick={changeGenreFilterHandler.bind(null, value)} key={i}>
-          {name}
-        </Button>
+        <FilterButton
+          name={name}
+          selected={isSeleceted}
+          onClick={changeGenreFilterHandler.bind(null, value)}
+          key={i}
+        />
       );
     }
   );
 
-  return <div>{filterButtons}</div>;
+  return (
+    <Stack direction={"row"} justifyContent={"center"} spacing={2}>
+      {filterButtons}
+    </Stack>
+  );
 };
 
 export default GenreFilter;

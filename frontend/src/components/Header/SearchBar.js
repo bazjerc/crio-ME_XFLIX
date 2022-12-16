@@ -1,9 +1,10 @@
 import React from "react";
 import { useState, useContext } from "react";
 
-import TextField from "@mui/material/TextField";
+import Input from "@mui/material/Input";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import Stack from "@mui/system/Stack";
 
 import FilterContext from "../../store/filter-context";
 
@@ -20,16 +21,42 @@ const SearchBar = function () {
   };
 
   return (
-    <div>
-      <TextField
+    <Stack
+      direction={"row"}
+      sx={{
+        border: 1,
+        borderColor: "input.border",
+        borderRadius: "2px",
+        width: "50%",
+      }}
+    >
+      <Input
         value={searchString}
         placeholder="Search"
         onChange={searchInputHandler}
+        disableUnderline
+        sx={{
+          padding: "0 15px",
+          bgcolor: "input.background",
+          color: "white",
+          borderRight: 1,
+          borderColor: "input.border",
+          flexBasis: "100%",
+        }}
       />
-      <IconButton onClick={searchHandler}>
+      <IconButton
+        onClick={searchHandler}
+        sx={{
+          borderRadius: 0,
+          padding: "0 20px",
+          bgcolor: "button.dark.background",
+          color: "button.dark.content",
+          "&:hover": { bgcolor: "button.dark.background" },
+        }}
+      >
         <SearchIcon />
       </IconButton>
-    </div>
+    </Stack>
   );
 };
 
