@@ -18,8 +18,8 @@ const Header = function (props) {
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
         <Logo />
-        <SearchBar />
-        <UploadButton />
+        {props.useExtraFunc && <SearchBar />}
+        {props.useExtraFunc && <UploadButton />}
       </Container>
     </Container>
   );

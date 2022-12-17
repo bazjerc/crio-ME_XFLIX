@@ -4,17 +4,17 @@ import Header from "../Header/Header";
 import Dashboard from "../Dashboard";
 import FilterPanel from "../FilterPanel/FilterPanel";
 
-const LandingPage = function (props) {
+const Root = function (props) {
   return (
     <React.Fragment>
-      <Header />
+      <Header useExtraFunc={true} />
       <FilterPanel />
       <Dashboard videoList={props.videoList}></Dashboard>
     </React.Fragment>
   );
 };
 
-export default LandingPage;
+export default Root;
 
 // set groups and genres via form
 // keep to state for each  filter and search then build the url paramaeter programatacly based on state (use reducer?)

@@ -28,6 +28,10 @@ const defaultTheme = createTheme({
     borderRadius: 0,
   },
   typography: {
+    h4: {
+      fontSize: "24px",
+      fontWeight: 700,
+    },
     h5: {
       fontSize: "14px",
       fontWeight: 700,

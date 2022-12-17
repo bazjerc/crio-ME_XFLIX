@@ -3,7 +3,8 @@ import { useEffect, useState, useContext, useCallback } from "react";
 
 import axios from "axios";
 
-import LandingPage from "./components/routes/Root";
+import Root from "./components/routes/Root";
+import Video from "./components/routes/Video";
 
 import FilterContext from "./store/filter-context";
 
@@ -56,7 +57,8 @@ function App() {
 
   return (
     <React.Fragment>
-      <LandingPage videoList={videoList} />
+      <Root videoList={videoList} />
+      {/* <Video videoList={videoList} /> */}
     </React.Fragment>
   );
 }
