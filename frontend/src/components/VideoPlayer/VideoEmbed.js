@@ -4,7 +4,7 @@ const VideoEmbed = function (props) {
   return (
     <iframe
       title={"Embedded Player"}
-      src={`https://www.youtube.com/embed/yrooR3CjESY`}
+      src={props.src}
       style={{
         width: "100%",
         maxHeight: "600px",

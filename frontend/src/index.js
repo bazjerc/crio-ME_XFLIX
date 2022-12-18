@@ -1,22 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
-
-import App from "./App";
-
-import FilterProvider from "./store/FilterProvider";
+import { BrowserRouter } from "react-router-dom";
 
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import defaultTheme from "./themes/default-theme";
+
+import App from "./App";
+import FilterProvider from "./store/FilterProvider";
+
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
-      <FilterProvider>
-        <CssBaseline />
-        <App />
-      </FilterProvider>
+      <CssBaseline />
+      <BrowserRouter>
+        <FilterProvider>
+          <App />
+        </FilterProvider>
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 );

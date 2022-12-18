@@ -1,10 +1,16 @@
 import React from "react";
 
-import { Stack, Box, width } from "@mui/system";
-import { IconButton, Typography } from "@mui/material";
-import { Button } from "@mui/material";
-import { ThumbUpAlt } from "@mui/icons-material";
-import { ThumbDownAlt } from "@mui/icons-material";
+import Stack from "@mui/system/Stack";
+import Box from "@mui/system/Box";
+import Typography from "@mui/material/Typography";
+
+import RatingButton from "./RatingButton";
+
+import siteConfig from "../../config/site-config";
+import axios from "axios";
+
+import { findVideo } from "../../helpers/helper-functions";
+import { mockData } from "../../config/site-config";
 
 const DotSeparator = function () {
   return (
@@ -20,37 +26,33 @@ const DotSeparator = function () {
   );
 };
 
-const RatingButton = function (props) {
-  let icon;
-  let accent;
-
-  if (props.variant === "up") {
-    icon = <ThumbUpAlt />;
-    accent = "light";
-  }
-  if (props.variant === "down") {
-    icon = <ThumbDownAlt />;
-    accent = "dark";
-  }
-
-  return (
-    <Button
-      startIcon={icon}
-      sx={{
-        bgcolor: `button.${accent}.background`,
-        padding: "8px 20px",
-        borderRadius: "100px",
-        color: "button.light.content",
-        "&:hover": { bgcolor: `button.${accent}.background` },
-      }}
-    >
-      {props.voteCount}
-    </Button>
-  );
-};
-
 const VideoMeta = function (props) {
-  const upvotes = null;
+  // const videoVoteHandler = async (type, change) => {
+  //   const reqOptions = {
+  //     method: "patch",
+  //     url: `${siteConfig.backendEndpoint}/videos/${props.id}/votes`,
+  //     headers: { "Content-Type": "application/json" },
+  //     body: {
+  //       vote: `${type}Vote`,
+  //       change: change,
+  //     },
+  //   };
+
+  //   try {
+  //     // const res = await axios(reqOptions);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const videoVoteHandler = (type, change) => {
+    const video = findVideo(mockData, props.id);
+    if (type === "up") {
+      video.votes.upVotes++;
+    } else {
+      video.votes.downVotes++;
+    }
+  };
 
   return (
     <Stack
@@ -76,8 +78,16 @@ const VideoMeta = function (props) {
         </Stack>
       </Box>
       <Stack direction={"row"} gap={2} alignItems={"center"}>
-        <RatingButton variant={"up"} voteCount={123123} />
-        <RatingButton variant={"down"} voteCount={123123} />
+        <RatingButton
+          variant={"up"}
+          voteCount={props.upVotes}
+          onClick={videoVoteHandler.bind(null, "up", "increase")}
+        />
+        <RatingButton
+          variant={"down"}
+          voteCount={props.downVotes}
+          onClick={videoVoteHandler.bind(null, "down", "increase")}
+        />
       </Stack>
     </Stack>
   );

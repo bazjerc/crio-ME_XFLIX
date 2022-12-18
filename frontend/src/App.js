@@ -1,17 +1,17 @@
 import React from "react";
 import { useEffect, useState, useContext, useCallback } from "react";
-
-import axios from "axios";
+import { Routes, Route } from "react-router";
 
 import Root from "./components/routes/Root";
 import Video from "./components/routes/Video";
 
 import FilterContext from "./store/filter-context";
 
-import siteConfig from "./config/site-config";
-import { mockData } from "./config/site-config";
+import axios from "axios";
 
-import "./App.css";
+import siteConfig from "./config/site-config";
+
+import { mockData } from "./config/site-config";
 
 const buildQueryString = function ({ title, genre, ageRating, sort }) {
   let queryString = `?sortBy=${sort}`;
@@ -26,12 +26,10 @@ const buildQueryString = function ({ title, genre, ageRating, sort }) {
 function App() {
   const filterCtx = useContext(FilterContext);
   const [videoList, setVideoList] = useState([]);
-  console.log(filterCtx.currentFilter);
 
   const getVideos = useCallback(
     async function () {
       const queryString = buildQueryString(filterCtx.currentFilter);
-      console.log(queryString);
 
       const reqOptions = {
         method: "get",
@@ -57,8 +55,10 @@ function App() {
 
   return (
     <React.Fragment>
-      <Root videoList={videoList} />
-      {/* <Video videoList={videoList} /> */}
+      <Routes>
+        <Route exact path="/" element={<Root videoList={videoList} />} />
+        <Route path="/watch/:id" element={<Video videoList={videoList} />} />
+      </Routes>
     </React.Fragment>
   );
 }

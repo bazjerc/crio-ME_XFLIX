@@ -5,16 +5,11 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/system/Box";
-
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 
 import FilterContext from "../../store/filter-context";
 
-const convertToTitleCase = function (string) {
-  const temp = string.replace(/([A-Z])/g, " $1");
-  const titleCase = temp.charAt(0).toUpperCase() + temp.slice(1);
-  return titleCase;
-};
+import { convertToTitleCase } from "../../helpers/helper-functions";
 
 const SortFilter = function () {
   const filterCtx = useContext(FilterContext);

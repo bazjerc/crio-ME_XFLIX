@@ -1,12 +1,19 @@
 import React from "react";
+import { useState } from "react";
+
+import Container from "@mui/system/Container";
 
 import Logo from "../Logo";
 import SearchBar from "./SearchBar";
 import UploadButton from "./UploadButton";
 
-import Container from "@mui/system/Container";
+import UploadModal from "../UploadModal/UploadModal";
 
 const Header = function (props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalOpenHandler = () => setIsModalOpen(true);
+  const modalCloseHandler = () => setIsModalOpen(false);
+
   return (
     <Container
       component={"header"}
@@ -19,7 +26,8 @@ const Header = function (props) {
       >
         <Logo />
         {props.useExtraFunc && <SearchBar />}
-        {props.useExtraFunc && <UploadButton />}
+        {props.useExtraFunc && <UploadButton onClick={modalOpenHandler} />}
+        <UploadModal open={isModalOpen} close={modalCloseHandler} />
       </Container>
     </Container>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import UploadIcon from "@mui/icons-material/Upload";
 
-const UploadButton = function () {
+const UploadButton = function (props) {
   return (
     <Button
       startIcon={<UploadIcon />}
@@ -15,6 +15,7 @@ const UploadButton = function () {
         color: "button.light.content",
         "&:hover": { bgcolor: "button.light.background" },
       }}
+      onClick={props.onClick}
     >
       Upload
     </Button>
