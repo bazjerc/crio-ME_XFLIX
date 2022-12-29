@@ -26,8 +26,6 @@ yarn-error.log*
 yarn.lock
 .vscode/
 
-.netlify
-
 node_modules
 node_modules/
 frontend/package-lock.json
