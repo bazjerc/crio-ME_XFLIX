@@ -9,6 +9,7 @@ const defaultTheme = createTheme({
     input: {
       background: "#181818",
       border: "#606060",
+      focused: "#4CA3FC",
     },
     button: {
       light: { background: "#4CA3FC", content: "#FFFFFF" },

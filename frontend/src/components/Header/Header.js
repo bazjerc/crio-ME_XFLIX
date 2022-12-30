@@ -22,7 +22,12 @@ const Header = function (props) {
     >
       <Container
         disableGutters={true}
-        sx={{ display: "flex", justifyContent: "space-between" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          height: "35px",
+          alignItems: "center",
+        }}
       >
         <Logo />
         {props.useExtraFunc && <SearchBar />}

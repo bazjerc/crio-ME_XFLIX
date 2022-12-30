@@ -11,21 +11,33 @@ import FilterContext from "../../store/filter-context";
 const SearchBar = function () {
   const filterCtx = useContext(FilterContext);
   const [searchString, setSearchString] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+
+  const focusHandler = function () {
+    setIsFocused(true);
+  };
+
+  const blurHandler = function () {
+    setIsFocused(false);
+  };
 
   const searchInputHandler = (e) => {
     setSearchString(e.target.value);
   };
 
-  const searchHandler = function () {
+  const searchHandler = function (e) {
+    e.preventDefault();
     filterCtx.updateFilters("title", searchString);
   };
 
   return (
     <Stack
       direction={"row"}
+      component="form"
+      onSubmit={searchHandler}
       sx={{
         border: 1,
-        borderColor: "input.border",
+        borderColor: isFocused === false ? "input.border" : "input.focused",
         borderRadius: "2px",
         width: "50%",
       }}
@@ -34,6 +46,8 @@ const SearchBar = function () {
         value={searchString}
         placeholder="Search"
         onChange={searchInputHandler}
+        onFocus={focusHandler}
+        onBlur={blurHandler}
         disableUnderline
         sx={{
           padding: "0 15px",
@@ -45,7 +59,7 @@ const SearchBar = function () {
         }}
       />
       <IconButton
-        onClick={searchHandler}
+        type={"submit"}
         sx={{
           borderRadius: 0,
           padding: "0 20px",

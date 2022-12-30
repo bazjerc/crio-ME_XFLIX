@@ -9,7 +9,7 @@ const UploadButton = function (props) {
       startIcon={<UploadIcon />}
       sx={{
         borderRadius: "5px",
-        padding: "0 30px",
+        padding: "5px 30px",
         textTransform: "none",
         bgcolor: "button.light.background",
         color: "button.light.content",
