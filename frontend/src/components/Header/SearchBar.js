@@ -40,6 +40,7 @@ const SearchBar = function () {
         borderColor: isFocused === false ? "input.border" : "input.focused",
         borderRadius: "2px",
         width: "50%",
+        overflow:"hidden"
       }}
     >
       <Input

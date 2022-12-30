@@ -3,13 +3,16 @@ import React from "react";
 import Header from "../Header/Header";
 import Dashboard from "../Dashboard";
 import FilterPanel from "../FilterPanel/FilterPanel";
+import { Container } from "@mui/material";
 
 const Root = function (props) {
   return (
     <React.Fragment>
       <Header useExtraFunc={true} />
       <FilterPanel />
-      <Dashboard videoList={props.videoList}></Dashboard>
+      <Container sx={{ marginTop: "20px", padding: "0 20px"}}>
+        <Dashboard videoList={props.videoList}></Dashboard>
+      </Container>
     </React.Fragment>
   );
 };

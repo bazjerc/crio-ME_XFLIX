@@ -13,7 +13,7 @@ const Video = function (props) {
       <Header useExtraFunc={false} />
       <Container sx={{ marginTop: "20px" }}>
         <VideoPlayer />
-        <Divider sx={{ bgcolor: "input.border" }} />
+        <Divider sx={{ bgcolor: "input.border", marginBottom: "20px" }} />
         <Dashboard videoList={props.videoList} />
       </Container>
     </React.Fragment>

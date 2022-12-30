@@ -11,7 +11,7 @@ const VideoCard = function (props) {
   const uploadTime = getTimeDifference(props.date);
 
   return (
-    <Card sx={{ maxWidth: 260, boxShadow: "none", cursor: "pointer" }}>
+    <Card sx={{ boxShadow: "none", cursor: "pointer", }}>
       <CardMedia component="img" src={props.thumb} />
       <CardContent sx={{ padding: "5px 0", bgcolor: "background.default" }}>
         <Typography variant="h5" sx={{ color: "text.cardTitle" }}>

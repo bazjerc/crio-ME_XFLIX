@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 import Grid from "@mui/material/Grid";
 
 import VideoCard from "./VideoCard";
-import Container from "@mui/system/Container";
 
 import { findVideo } from "../helpers/helper-functions";
 import { mockData } from "../config/site-config";
@@ -39,6 +38,9 @@ const Dashboard = function (props) {
     return (
       <Grid
         item
+        md={3}
+        sm={6}
+        xs={12}
         key={videoData._id}
         onClick={redirectToVideo.bind(null, videoData._id)}
       >
@@ -52,11 +54,9 @@ const Dashboard = function (props) {
   });
 
   return (
-    <Container sx={{ padding: "20px 0", margin: "0 auto" }}>
-      <Grid container justifyContent="center" gap={2}>
-        {videoGrid}
-      </Grid>
-    </Container>
+    <Grid container spacing={2}>
+      {videoGrid}
+    </Grid>
   );
 };
 
